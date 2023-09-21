@@ -20,3 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
     cookieNotification.style.display = "none";
   });
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleButton = document.getElementById("toggle");
+  const hiddenMenu = document.getElementById("hiddenMenu");
+
+  toggleButton.addEventListener("click", function() {
+    if (hiddenMenu.classList.contains("hidden")) {
+      hiddenMenu.classList.remove("hidden");
+      hiddenMenu.classList.add("visible");
+    } else {
+      hiddenMenu.classList.add("hidden");
+      hiddenMenu.classList.remove("visible");
+    }
+  });
+});
