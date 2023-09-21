@@ -22,18 +22,37 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// ... seu código existente ...
 
-document.addEventListener("DOMContentLoaded", function() {
-  const toggleButton = document.getElementById("toggle");
-  const hiddenMenu = document.getElementById("hiddenMenu");
-
-  toggleButton.addEventListener("click", function() {
-    if (hiddenMenu.classList.contains("hidden")) {
-      hiddenMenu.classList.remove("hidden");
-      hiddenMenu.classList.add("visible");
-    } else {
-      hiddenMenu.classList.add("hidden");
-      hiddenMenu.classList.remove("visible");
+async function loadMenu() {
+  try {
+    const response = await fetch('templates/sidebar/nav_sidebar.html');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    const menuHTML = await response.text();
+    document.getElementById('nav_sidebar').innerHTML = menuHTML;
+    initializeMenu();
+  } catch (error) {
+    console.error('There was a problem loading the menu:', error);
+  }
+}
+
+function initializeMenu() {
+  const menu = document.getElementById('menu');
+  const menuOpeners = menu.querySelectorAll('.opener');
+
+  menuOpeners.forEach((opener) => {
+    opener.addEventListener('click', (event) => {
+      event.preventDefault();
+      menuOpeners.forEach((o) => o.classList.remove('active'));
+      opener.classList.toggle('active');
+    });
   });
-});
+}
+
+// Carregar o menu
+loadMenu();
+
+// ... seu código existente ...
+
